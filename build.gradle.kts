@@ -6,7 +6,7 @@ plugins {
     id("xyz.jpenilla.run-paper") version "3.0.2"
 }
 
-group = "com.example"
+group = "gg.bitesize"
 version = "1.0"
 
 repositories {
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("26.2.build.+")
 }
 
 tasks {
@@ -37,7 +37,7 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("1.21.11")
+        minecraftVersion("26.2")
     }
 }
 
@@ -46,5 +46,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("TestPluginKt")
+    mainClass.set("MainKt")
 }

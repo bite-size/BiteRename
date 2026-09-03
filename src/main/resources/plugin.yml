@@ -1,8 +1,7 @@
-name: TestPlugin
+name: PluginTemplate
 version: 1.0
-main: com.example.test.TestPlugin
-api-version: 1.20
-description: Super cool test plugin!
-author: Stephen
-contributors: [Brandon, Josh]
-website: https://mcworkshop.org
+main: gg.bitesize.plugin.Main
+api-version: 26.2
+description: bitesize plugin template base
+author: bitesize
+website: https://bitesize.gg
