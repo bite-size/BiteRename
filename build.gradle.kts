@@ -46,9 +46,5 @@ kotlin {
 }
 
 application {
-<<<<<<< Updated upstream
     mainClass.set("MainKt")
-=======
-    mainClass.set("BiteRTPKt")
->>>>>>> Stashed changes
 }

@@ -1,3 +1,3 @@
 
-rootProject.name = "BiteRTP"
+rootProject.name = "PluginTemplate"
 

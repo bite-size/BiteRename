@@ -1,15 +1,7 @@
-<<<<<<< Updated upstream
 name: PluginTemplate
 version: 1.0
 main: gg.bitesize.plugin.Main
 api-version: 26.2
 description: bitesize plugin template base
-=======
-name: BiteRTP
-version: 1.0
-main: gg.bitesize.bitertp.BiteRTP
-api-version: 26.2
-description: Bitesize RTP
->>>>>>> Stashed changes
 author: bitesize
 website: https://bitesize.gg
