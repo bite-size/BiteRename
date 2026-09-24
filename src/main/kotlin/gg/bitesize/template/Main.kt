@@ -1,15 +1,24 @@
 package gg.bitesize.template
 
+import gg.bitesize.template.managers.ConfigManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
 
+    companion object {
+        lateinit var INSTANCE: Main
+    }
+
+    override fun onLoad() {
+        INSTANCE = this
+    }
+
     override fun onEnable() {
-        println("Wow, it worked!")
+        ConfigManager.loadConfigs()
     }
 
     override fun onDisable() {
-
+        ConfigManager.saveConfigs()
     }
 
 }
