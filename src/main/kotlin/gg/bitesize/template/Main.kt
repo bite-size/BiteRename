@@ -1,4 +1,4 @@
-package gg.bitesize.plugin
+package gg.bitesize.template
 
 import org.bukkit.plugin.java.JavaPlugin
 
