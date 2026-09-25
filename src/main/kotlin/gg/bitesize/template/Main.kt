@@ -2,6 +2,7 @@ package gg.bitesize.template
 
 import gg.bitesize.template.managers.CommandManager
 import gg.bitesize.template.managers.ConfigManager
+import gg.bitesize.template.managers.CooldownManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class Main : JavaPlugin() {
@@ -26,6 +27,8 @@ class Main : JavaPlugin() {
         ConfigManager.saveConfigs()
 
         CommandManager.shutdown()
+
+        CooldownManager.shutdown()
     }
 
 }
