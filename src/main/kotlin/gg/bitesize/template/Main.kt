@@ -1,5 +1,6 @@
 package gg.bitesize.template
 
+import gg.bitesize.template.managers.CommandManager
 import gg.bitesize.template.managers.ConfigManager
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -15,10 +16,16 @@ class Main : JavaPlugin() {
 
     override fun onEnable() {
         ConfigManager.loadConfigs()
+
+        CommandManager.registerAll()
+        CommandManager.removeVanillaCommands()
+        CommandManager.syncCommands()
     }
 
     override fun onDisable() {
         ConfigManager.saveConfigs()
+
+        CommandManager.shutdown()
     }
 
 }

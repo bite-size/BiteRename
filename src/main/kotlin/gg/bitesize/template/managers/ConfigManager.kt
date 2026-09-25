@@ -57,6 +57,10 @@ object ConfigManager {
         return CONFIG.getDouble(path, default)
     }
 
+    fun getList(path: String): List<String> {
+        return CONFIG.getStringList(path)
+    }
+
     fun getPrefix(): String {
         return messages.getString("prefix") ?: ""
     }
