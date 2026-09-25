@@ -2,7 +2,7 @@
 prefix: "\uD83C\uDF70 "
 
 ## Errors:
-error-prefix: '! '
+error-prefix: '❗️ '
 player-not-found: 'Player not found.'
 no-permission: 'Invalid permission.'
 not-a-player: 'Only players can run this command.'

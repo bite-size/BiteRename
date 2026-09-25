@@ -13,7 +13,7 @@ object ConfigManager {
     lateinit var messages: FileConfiguration
         private set
 
-    private const val MESSAGE_NOT_FOUND = "<red>Message not found.</red>"
+    private const val MESSAGE_NOT_FOUND = "<red>Message not found. Check <gray>messages.yml<red>.</red>"
 
     fun loadConfigs() {
         INSTANCE.saveDefaultConfig()
@@ -59,6 +59,10 @@ object ConfigManager {
 
     fun getPrefix(): String {
         return messages.getString("prefix") ?: ""
+    }
+
+    fun getErrorPrefix(): String {
+        return messages.getString("error-prefix") ?: "! "
     }
 
     fun getMessage(path: String, default: String = MESSAGE_NOT_FOUND): String {
