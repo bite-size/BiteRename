@@ -1,0 +1,156 @@
+[SIZE=6][B][COLOR=#FF0368]BiteRename[/COLOR][/B][/SIZE]
+[I]Rename items, write lore, and save the look for later, all in-game.[/I]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Overview[/COLOR][/B][/SIZE]
+Anvils give you one plain name and no lore. BiteRename gives your players gradients, hex colors, and multi-line lore with a single command. When they've styled the perfect item, they can copy that look onto another item or save it as a template to reuse whenever they like. Admins stay in control with feature toggles, blacklists, limits, and optional Vault or XP costs.
+
+[SIZE=5][B][COLOR=#FF0368]▸ Key Features[/COLOR][/B][/SIZE]
+[LIST]
+[*][B][COLOR=#4ECDC4]Modern Formatting:[/COLOR][/B] MiniMessage gradients, HEX colors, and classic & codes, even mixed in the same line.
+[*][B][COLOR=#4ECDC4]Copy & Paste:[/COLOR][/B] Copy an item's name, lore, and hidden flags, then paste them onto another item.
+[*][B][COLOR=#4ECDC4]Persistent Templates:[/COLOR][/B] Save your favorite looks by name and apply them any time, even after a restart.
+[*][B][COLOR=#4ECDC4]API Integrations:[/COLOR][/B] Full Vault support for economy costs and PlaceholderAPI support for live variables in names and lore.
+[*][B][COLOR=#4ECDC4]Spigot, Paper & Purpur:[/COLOR][/B] One jar that runs on all three, tested on each.
+[/LIST]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Formatting[/COLOR][/B][/SIZE]
+Every name and lore line understands both MiniMessage and legacy codes. Names and lore show upright, without the vanilla italics.
+
+[LIST]
+[*][B]<red>Ruby[/B] / [B]<gold>Gilded[/B] - Named colors.
+[*][B]<#FF0368>Magenta[/B] / [B]&#FF0368Magenta[/B] - HEX colors.
+[*][B]<gradient:#FF0368:#4ECDC4>Bitesize</gradient>[/B] - Smooth gradients (rainbows too).
+[*][B]<bold>[/B], [B]<italic>[/B], [B]<underlined>[/B], [B]<strikethrough>[/B] - Decorations.
+[*][B]&c&lBold Red[/B] - Classic legacy codes.
+[*][B]/br lore add &r[/B] - Adds a blank lore line to space things out.
+[/LIST]
+
+Only visual tags are allowed, so players can't sneak click, hover, or selector tags onto items.
+
+[SIZE=5][B][COLOR=#FF0368]▸ Additional Features[/COLOR][/B][/SIZE]
+[LIST]
+[*]Every single message is completely configurable in the messages.yml.
+[*]Smart TAB completion suggests subcommands, your saved templates, and the exact lore lines on the item you're holding.
+[*]Word and item blacklists that can't be dodged with color codes, plus length and lore line limits.
+[*]Turn any feature on or off: renaming, lore, clearing, hiding flags, copy/paste, and templates.
+[*]Players are only charged once every check has passed, so nobody pays for a failed edit.
+[*]Lightweight: nothing extra to install, and template saves are written in the background.
+[/LIST]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Item Commands[/COLOR][/B][/SIZE]
+[LIST]
+[*][B][COLOR=#4ECDC4]/br rename <name>[/COLOR][/B] - Rename the held item [I](biterename.rename)[/I]
+[*][B][COLOR=#4ECDC4]/br lore add <text>[/COLOR][/B] - Add a lore line [I](biterename.lore)[/I]
+[*][B][COLOR=#4ECDC4]/br lore delline <line>[/COLOR][/B] - Remove a lore line [I](biterename.lore)[/I]
+[*][B][COLOR=#4ECDC4]/br clear [name|lore][/COLOR][/B] - Clear the name, lore, or both [I](biterename.clear)[/I]
+[*][B][COLOR=#4ECDC4]/br hide <enchants|attributes>[/COLOR][/B] - Hide enchantments or attributes [I](biterename.hide)[/I]
+[*][B][COLOR=#4ECDC4]/br unhide <enchants|attributes>[/COLOR][/B] - Show them again [I](biterename.hide)[/I]
+[*][B][COLOR=#4ECDC4]/br copy[/COLOR][/B] - Copy the name, lore, and flags [I](biterename.copypaste)[/I]
+[*][B][COLOR=#4ECDC4]/br paste[/COLOR][/B] - Paste your clipboard onto an item [I](biterename.copypaste)[/I]
+[*][B][COLOR=#4ECDC4]/br help[/COLOR][/B] - Show the help menu [I](biterename.use)[/I]
+[/LIST]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Template Commands[/COLOR][/B][/SIZE]
+[LIST]
+[*][B][COLOR=#4ECDC4]/br template save <name>[/COLOR][/B] - Save your item's look as a template [I](biterename.templates)[/I]
+[*][B][COLOR=#4ECDC4]/br template load <name>[/COLOR][/B] - Apply a template to your item [I](biterename.templates)[/I]
+[*][B][COLOR=#4ECDC4]/br template delete <name>[/COLOR][/B] - Delete a template [I](biterename.templates)[/I]
+[*][B][COLOR=#4ECDC4]/br templates[/COLOR][/B] - List your templates [I](biterename.templates)[/I]
+[/LIST]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Admin Commands & Permissions[/COLOR][/B][/SIZE]
+[LIST]
+[*][B][COLOR=#4ECDC4]/br reload[/COLOR][/B] - Reload config & messages [I](biterename.admin)[/I]
+[*][B]biterename.bypass.cost[/B] - Never charged for actions.
+[*][B]biterename.bypass.blacklist[/B] - Can use blocked words and edit blocked items.
+[*][B]biterename.placeholders[/B] - PlaceholderAPI placeholders are filled in for this player's text.
+[*][B]biterename.*[/B] - Every BiteRename permission.
+[/LIST]
+
+All permissions default to op. [I]Every command also works as /biterename.[/I]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Configuration[/COLOR][/B][/SIZE]
+[LIST]
+[*][B][COLOR=#4ECDC4]Features:[/COLOR][/B] Toggle renaming, lore, clearing, hiding, copy/paste, and templates individually.
+[*][B][COLOR=#4ECDC4]Limits:[/COLOR][/B] Max lore lines, name and lore length (formatting doesn't count), and templates per player.
+[*][B][COLOR=#4ECDC4]Formatting:[/COLOR][/B] Upright (non-italic) text and blank lore lines, each toggleable.
+[*][B][COLOR=#4ECDC4]Blacklists:[/COLOR][/B] Blocked words (case and formatting ignored) and items that can't be edited.
+[*][B][COLOR=#4ECDC4]Economy:[/COLOR][/B] NONE, VAULT, or XP, with a separate cost for each action.
+[/LIST]
+
+[SPOILER=config.yml]
+[CODE]features:
+  rename: true
+  lore: true
+  clear: true
+  hide: true
+  clipboard: true    # /br copy and /br paste
+  templates: true
+
+limits:
+  max-lore-lines: 10
+  max-name-length: 0
+  max-lore-length: 0
+  max-templates: 0   # per player
+
+formatting:
+  upright-text: true
+  allow-empty-lore-lines: true
+
+blacklists:
+  words:
+    - "admin"
+    - "owner"
+    - "staff"
+  materials:
+    - "BEDROCK"
+    - "BARRIER"
+    - "COMMAND_BLOCK"
+
+economy:
+  type: "NONE"       # NONE, VAULT, or XP
+  costs:
+    rename: 0.0
+    lore-add: 0.0
+    lore-delline: 0.0
+    clear-all: 0.0
+    clear-name: 0.0
+    clear-lore: 0.0
+    hide: 0.0
+    paste: 0.0
+    template-load: 0.0[/CODE]
+[/SPOILER]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Messages[/COLOR][/B][/SIZE]
+Every message lives in messages.yml, grouped into errors, messages, and help, with full MiniMessage support. Set your own prefix and error prefix, and use these variables:
+[LIST]
+[*][B]<label>[/B] - The command label used (e.g. br).
+[*][B]<max>[/B] - A configured limit.
+[*][B]<line>[/B] - A lore line number.
+[*][B]<cost>[/B] - The cost of an action (e.g. $100 or 5).
+[*][B]<template>[/B] / [B]<templates>[/B] - A template name / the player's template list.
+[/LIST]
+New messages added in updates are filled in automatically, so you never have to regenerate the file.
+
+[SIZE=5][B][COLOR=#FF0368]▸ Soft Dependencies[/COLOR][/B][/SIZE]
+[LIST]
+[*][B]Vault API[/B] - Needed if you want to charge money for edits (works with Vault or VaultUnlocked plus any economy plugin).
+[*][B]PlaceholderAPI[/B] - Needed if you want variables (%player_name%, etc.) in names and lore.
+[/LIST]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Compatibility[/COLOR][/B][/SIZE]
+[LIST]
+[*][B]Minecraft:[/B] 26.3
+[*][B]Servers:[/B] Spigot, Paper, and Purpur
+[*][B]Java:[/B] 25
+[/LIST]
+[I]On first start, the server downloads the Kotlin standard library once, so it needs internet access.[/I]
+
+[SIZE=5][B][COLOR=#FF0368]▸ Coming from LRename?[/COLOR][/B][/SIZE]
+BiteRename is the successor to LRename. Drop it in and your players' saved templates are imported automatically on the first start.
+
+[SIZE=5][B][COLOR=#FF0368]▸ Video Tutorial[/COLOR][/B][/SIZE]
+Coming soon...
+
+[SIZE=5][B][COLOR=#FF0368]▸ Support[/COLOR][/B][/SIZE]
+Lost, confused, or stuck at any point? Reach out to me here, on GitHub, or on Discord (username: [COLOR=#4ECDC4][B].bite.size[/B][/COLOR]).
