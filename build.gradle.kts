@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "gg.bitesize"
-version = "0.1"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
