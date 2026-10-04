@@ -16,10 +16,13 @@ data class ItemSnapshot(
     val isEmpty: Boolean
         get() = displayName.isNullOrEmpty() && lore.isNullOrEmpty() && flags.isEmpty()
 
-    /** Replaces the meta's name, lore, and flags, so the result matches the snapshot exactly. */
-    fun applyTo(meta: ItemMeta) {
-        meta.setDisplayName(displayName?.takeIf { it.isNotEmpty() })
-        meta.lore = lore?.takeIf { it.isNotEmpty() }
+    /**
+     * Replaces the meta's name, lore, and flags, so the result matches the snapshot exactly.
+     * Snapshot text comes from legacy getters, so [upright] restores the non-italic style.
+     */
+    fun applyTo(meta: ItemMeta, upright: Boolean) {
+        meta.setDisplayName(displayName?.takeIf { it.isNotEmpty() }?.let { ItemText.upright(it, upright) })
+        meta.lore = lore?.takeIf { it.isNotEmpty() }?.let { ItemText.upright(it, upright) }
 
         meta.removeItemFlags(*ItemFlag.entries.toTypedArray())
         if (flags.isNotEmpty()) {

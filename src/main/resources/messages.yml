@@ -22,10 +22,14 @@ usage: 'Usage: <light><usage></light>'
 no-item: 'Hold an item in your main hand first.'
 blacklisted-material: "This item can't be edited."
 blacklisted-word: 'That text contains a blocked word.'
+empty-text: "That text is empty once formatting is removed."
 name-too-long: 'Names can be up to <light><max></light> characters.'
 lore-too-long: 'Lore lines can be up to <light><max></light> characters.'
 max-lore-lines: 'This item already has the maximum of <light><max></light> lore lines.'
 invalid-line: "That lore line doesn't exist."
+nothing-to-clear: 'This item has nothing to clear.'
+already-hidden: "That's already hidden on this item."
+already-shown: "That's already shown on this item."
 nothing-to-copy: 'This item has no custom name, lore, or flags to copy.'
 clipboard-empty: 'Your clipboard is empty. Use <light>/br copy</light> first.'
 nothing-to-save: 'This item has no custom name, lore, or flags to save.'

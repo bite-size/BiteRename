@@ -8,3 +8,53 @@ website: https://bitesize.gg
 
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}
+
+permissions:
+  biterename.*:
+    description: Every BiteRename permission, including bypasses.
+    default: op
+    children:
+      biterename.use: true
+      biterename.rename: true
+      biterename.lore: true
+      biterename.clear: true
+      biterename.hide: true
+      biterename.copypaste: true
+      biterename.templates: true
+      biterename.admin: true
+      biterename.bypass.cost: true
+      biterename.bypass.blacklist: true
+      biterename.placeholders: true
+  biterename.use:
+    description: Use /biterename and see the help menu.
+    default: op
+  biterename.rename:
+    description: Rename the held item.
+    default: op
+  biterename.lore:
+    description: Add and remove lore lines.
+    default: op
+  biterename.clear:
+    description: Clear an item's name, lore, or both.
+    default: op
+  biterename.hide:
+    description: Hide or show enchantments and attributes.
+    default: op
+  biterename.copypaste:
+    description: Copy and paste an item's name, lore, and flags.
+    default: op
+  biterename.templates:
+    description: Save, load, and delete templates.
+    default: op
+  biterename.admin:
+    description: Reload the configuration.
+    default: op
+  biterename.bypass.cost:
+    description: Skip economy costs.
+    default: op
+  biterename.bypass.blacklist:
+    description: Bypass the word and item blacklists.
+    default: op
+  biterename.placeholders:
+    description: Use PlaceholderAPI placeholders in names and lore.
+    default: op

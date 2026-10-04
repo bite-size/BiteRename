@@ -61,6 +61,10 @@ object FormatManager {
         return legacySerializer.serialize(component)
     }
 
+    fun fromLegacy(text: String): Component {
+        return legacySerializer.deserialize(text)
+    }
+
     fun getPrefix(): Component {
         return prefix
     }

@@ -54,8 +54,15 @@ object ItemText {
     }
 
     fun toItemString(component: Component, upright: Boolean): String {
-        val legacy = FormatManager.toLegacy(component)
-        return if (upright && legacy.isNotEmpty()) UPRIGHT + legacy else legacy
+        return upright(FormatManager.toLegacy(component), upright)
+    }
+
+    fun upright(legacy: String, upright: Boolean): String {
+        return if (upright && legacy.isNotEmpty() && !legacy.startsWith(UPRIGHT)) UPRIGHT + legacy else legacy
+    }
+
+    fun upright(lines: List<String>, upright: Boolean): List<String> {
+        return if (upright) lines.map { upright(it, true) } else lines
     }
 
     fun translateLegacy(input: String): String {
