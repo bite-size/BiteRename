@@ -43,32 +43,6 @@ object CommandManager {
         registeredCommands.add(command)
     }
 
-    fun unregisterVanilla(commandName: String) {
-        val command = knownCommands[commandName] ?: return
-
-        command.unregister(commandMap)
-        knownCommands.remove(commandName)
-        command.aliases.forEach { alias ->
-            if(knownCommands[alias] == command) {
-                knownCommands.remove(alias)
-            }
-        }
-
-        knownCommands.remove("minecraft:$commandName")
-        knownCommands.remove("bukkit:$commandName")
-    }
-
-    fun removeVanillaCommands() {
-        val vanillaCommands = ConfigManager.getList("remove-vanilla-commands").filter { it.isNotBlank() }
-        if (vanillaCommands.isEmpty()) return
-
-        vanillaCommands.forEach { command ->
-            unregisterVanilla(command)
-        }
-
-        INSTANCE.logger.info("Removed ${vanillaCommands.size} vanilla commands.")
-    }
-
     fun syncCommands() {
         Bukkit.getServer().onlinePlayers.forEach { player ->
             player.updateCommands()

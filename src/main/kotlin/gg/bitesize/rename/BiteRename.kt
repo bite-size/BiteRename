@@ -21,7 +21,6 @@ class BiteRename : JavaPlugin() {
         ConfigManager.loadConfigs()
 
         CommandManager.registerAll()
-        CommandManager.removeVanillaCommands()
         CommandManager.syncCommands()
 
         server.pluginManager.registerEvents(PlayerListener, this)
