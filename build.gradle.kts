@@ -1,4 +1,6 @@
 import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
+import xyz.jpenilla.runpaper.task.RunServer
+import java.net.URI
 
 plugins {
     kotlin("jvm") version "2.4.0"
@@ -8,6 +10,9 @@ plugins {
 
 group = "gg.bitesize"
 version = "1.0.0"
+
+// Minecraft version used by every test server task (runServer, runPurpur, runSpigot)
+val testServerVersion = "26.3"
 
 repositories {
     mavenCentral()
@@ -66,10 +71,82 @@ tasks {
     }
 
     runServer {
-        minecraftVersion("26.3")
+        minecraftVersion(testServerVersion)
     }
 }
 
 kotlin {
     jvmToolchain(25)
+}
+
+// ---------------------------------------------------------------------------
+// Test servers for every supported platform. Each runs in its own folder:
+//   ./gradlew runServer   Paper   -> run/
+//   ./gradlew runPurpur   Purpur  -> run-purpur/
+//   ./gradlew runSpigot   Spigot  -> run-spigot/ (first run builds Spigot with BuildTools, ~10 min)
+// Server jars are cached in .servers/. Pass -PrefreshServers to fetch the latest builds.
+// ---------------------------------------------------------------------------
+
+val serverJarsDir: File = file(".servers")
+val refreshServers = providers.gradleProperty("refreshServers").isPresent
+val purpurJar = serverJarsDir.resolve("purpur-$testServerVersion.jar")
+val spigotJar = serverJarsDir.resolve("spigot-$testServerVersion.jar")
+
+fun download(url: String, target: File) {
+    target.parentFile.mkdirs()
+    URI(url).toURL().openStream().use { input -> target.outputStream().use(input::copyTo) }
+}
+
+val downloadPurpur by tasks.registering {
+    group = "run paper"
+    description = "Downloads the latest Purpur $testServerVersion build into .servers/."
+    outputs.file(purpurJar)
+    onlyIf { refreshServers || !purpurJar.exists() }
+    doLast { download("https://api.purpurmc.org/v2/purpur/$testServerVersion/latest/download", purpurJar) }
+}
+
+val buildSpigot by tasks.registering(Exec::class) {
+    group = "run paper"
+    description = "Builds Spigot $testServerVersion with BuildTools into .servers/."
+    val workDir = serverJarsDir.resolve("buildtools")
+    val launcher = javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(25)) }
+
+    outputs.file(spigotJar)
+    onlyIf { refreshServers || !spigotJar.exists() }
+    workingDir(workDir)
+    args("-jar", "BuildTools.jar", "--rev", testServerVersion,
+        "--output-dir", serverJarsDir.absolutePath, "--final-name", spigotJar.name)
+
+    doFirst {
+        download("https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar",
+            workDir.resolve("BuildTools.jar"))
+        executable = launcher.get().executablePath.asFile.absolutePath
+    }
+}
+
+fun RunServer.testServer(name: String, jar: File, directory: String) {
+    group = "run paper"
+    description = "Runs a $name $testServerVersion test server in $directory/."
+    displayName.set(name)
+    minecraftVersion(testServerVersion)
+    serverJar(jar)
+    runDirectory(file(directory))
+    pluginJars(tasks.shadowJar.flatMap { it.archiveFile })
+
+    // The EULA was already accepted for run/; these are local test servers for the same project
+    doFirst {
+        file(directory).resolve("eula.txt").apply { parentFile.mkdirs(); if (!exists()) writeText("eula=true\n") }
+    }
+}
+
+val runPurpur by tasks.registering(RunServer::class) {
+    testServer("Purpur", purpurJar, "run-purpur")
+    dependsOn(downloadPurpur)
+}
+
+val runSpigot by tasks.registering(RunServer::class) {
+    testServer("Spigot", spigotJar, "run-spigot")
+    dependsOn(buildSpigot)
+    // Spigot has no -add-plugin flag, so the plugin jar is copied into plugins/ instead
+    legacyPluginLoading()
 }

@@ -6,10 +6,16 @@ Guidance for Claude Code when working in this repository.
 
 ```bash
 ./gradlew build       # shaded plugin jar: build/libs/BiteRename-<version>.jar (ignore the -plain jar)
-./gradlew runServer   # local Paper 26.3 server in run/
+./gradlew runServer   # Paper 26.3 in run/ (the user's own test server)
+./gradlew runPurpur   # Purpur 26.3 in run-purpur/ (downloads .servers/purpur-26.3.jar)
+./gradlew runSpigot   # Spigot 26.3 in run-spigot/ (first run builds .servers/spigot-26.3.jar with BuildTools, ~5 min)
 ```
 
-There are no unit tests. Verify on a real server (see "In-game testing").
+- All three tasks load the current shadow jar. `testServerVersion` in build.gradle.kts sets the Minecraft version for all of them.
+- Pass `-PrefreshServers` to re-download Purpur or rebuild Spigot. Server jars are cached in `.servers/` (gitignored), as are `run-purpur/` and `run-spigot/`.
+- `runSpigot` uses `legacyPluginLoading()`, because Spigot has no `-add-plugin` flag.
+
+There are no unit tests. Verify on a real server, on all three platforms before a release (see "In-game testing").
 
 ## Platform rules
 
@@ -69,13 +75,15 @@ There are no unit tests. Verify on a real server (see "In-game testing").
 
 ## In-game testing
 
-- **Before `runServer` or touching anything in `run/`, check that no server is already running** (a `java.exe` with `run-task=true`, or port 25565 in use). The user runs their own test server there, and a second launch re-patches the shared Paper jar under it.
+- **Before any run task, or before touching anything in `run/`, check that no server is already running** (a `java.exe` with `run-task=true`, or port 25565 in use). The user runs their own test server in `run/`, and a second launch re-patches the shared Paper jar under it. All three platforms use port 25565, so run them one at a time.
+- Prefer `run-purpur/` and `run-spigot/` for automated tests, and leave `run/` to the user.
 - A player can be simulated with a mineflayer bot (26.1 client):
   - Add ViaVersion and ViaBackwards to `run/plugins` temporarily.
   - Set `online-mode=false`, `enforce-secure-profile=false`, and `white-list=false`.
   - Have the bot drop its movement packets, or Paper kicks it.
-  - Feed console commands through `tail -f <file> | ./gradlew runServer`.
-- **Ops bypass costs by default.** To test costs, add LuckPerms and negate `biterename.bypass.cost`. EssentialsX with VaultUnlocked works as a Vault economy on 26.3.
+  - Feed console commands through `tail -f <file> | ./gradlew <run task>`. Detach `tail`'s stdio, and stop it afterwards, because it never exits by itself.
+  - In Git Bash, `$TMP` is the system temp folder, not the session scratchpad.
+- **Ops bypass costs by default.** To test costs, add LuckPerms and negate `biterename.bypass.cost`. EssentialsX with VaultUnlocked works as a Vault economy on 26.3. On Spigot, EssentialsX 2.22.0 logs a harmless `NoSuchMethodException` from its own reflection.
 - **Revert everything afterwards:**
   - `server.properties`
   - added plugins and their data folders, including `faststats` from VaultUnlocked

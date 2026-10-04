@@ -196,7 +196,17 @@ cd BiteRename
 ./gradlew build
 ```
 
-The plugin jar is written to `build/libs/BiteRename-<version>.jar`. To try it on a local Paper server, run `./gradlew runServer`.
+The plugin jar is written to `build/libs/BiteRename-<version>.jar`.
+
+To try it on a local test server with the freshly built plugin loaded:
+
+| Platform | Command | Folder |
+|---|---|---|
+| Paper | `./gradlew runServer` | `run/` |
+| Purpur | `./gradlew runPurpur` | `run-purpur/` |
+| Spigot | `./gradlew runSpigot` | `run-spigot/` (the first run builds Spigot with BuildTools, which takes a few minutes) |
+
+Server jars are cached in `.servers/`. Add `-PrefreshServers` to fetch the latest builds.
 
 ## Metrics
 
