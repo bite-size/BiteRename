@@ -7,6 +7,11 @@ import org.bukkit.entity.Player
 
 class RenameCommand : BaseCommand("biterename", aliases = listOf("br")) {
 
+    private val helpEntries = listOf(
+        "rename", "lore-add", "lore-delline", "clear", "hide",
+        "copy", "paste", "template", "templates", "reload",
+    )
+
     override fun execute(sender: CommandSender, label: String, args: Array<String>): Boolean {
         if(sender !is Player) {
             FormatManager.error(sender, ConfigManager.getMessage("not-a-player"))
@@ -18,7 +23,9 @@ class RenameCommand : BaseCommand("biterename", aliases = listOf("br")) {
             return true
         }
 
-        FormatManager.sendList(sender, ConfigManager.getMessageList("help"))
+        val lines = listOf(ConfigManager.getMessage("help.header")) +
+                helpEntries.map { ConfigManager.getMessage("help.entries.$it") }
+        FormatManager.sendList(sender, lines)
 
         return true
     }

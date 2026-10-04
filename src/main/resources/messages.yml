@@ -1,6 +1,7 @@
 ###### BiteRename messages ######
 # Every message supports MiniMessage: https://docs.advntr.dev/minimessage/format
 # Use the theme colors below as tags, like <primary>Hello</primary>.
+# Words in <angle brackets> that aren't tags, like <name>, are shown as written.
 
 prefix: '<bold><#FF0368>[Bitesize]</#FF0368></bold> '
 
@@ -12,17 +13,64 @@ colors:
   muted: '#AEADF0'      # Periwinkle: hints and usage
   dark: '#011627'       # Ink Black: gradients and accents only, too dark to read in chat
 
-## Errors:
+## Errors (shown after error-prefix)
 error-prefix: '<primary>'
-player-not-found: 'Player not found.'
-no-permission: 'Invalid permission.'
-not-a-player: 'Only players can run this command.'
+no-permission: "You don't have permission to do that."
+not-a-player: 'Only players can use this command.'
+feature-disabled: 'That feature is turned off on this server.'
+usage: 'Usage: <light><usage></light>'
+no-item: 'Hold an item in your main hand first.'
+blacklisted-material: "This item can't be edited."
+blacklisted-word: 'That text contains a blocked word.'
+name-too-long: 'Names can be up to <light><max></light> characters.'
+lore-too-long: 'Lore lines can be up to <light><max></light> characters.'
+max-lore-lines: 'This item already has the maximum of <light><max></light> lore lines.'
+invalid-line: "That lore line doesn't exist."
+nothing-to-copy: 'This item has no custom name, lore, or flags to copy.'
+clipboard-empty: 'Your clipboard is empty. Use <light>/br copy</light> first.'
+nothing-to-save: 'This item has no custom name, lore, or flags to save.'
+invalid-template-name: 'Template names use letters, numbers, - and _ (up to 32 characters).'
+template-not-found: "You don't have a template named <light><template></light>."
+template-limit: "You've reached your limit of <light><max></light> templates."
+no-templates: "You don't have any saved templates yet."
+not-enough-money: 'You need <light><cost></light> to do that.'
+not-enough-xp: 'You need <light><cost> levels</light> to do that.'
+economy-unavailable: "Payments aren't available right now. Please let an admin know."
 
-## Messages:
+## Notices
+bypassed-material-blacklist: '<muted><italic>Heads up: you bypassed the item blacklist.'
+bypassed-word-blacklist: '<muted><italic>Heads up: you bypassed the word blacklist.'
+
+## Success
+reloaded: '<secondary>BiteRename reloaded.'
+item-renamed: '<secondary>Item renamed.'
+lore-added: '<secondary>Lore line added.'
+lore-line-deleted: '<secondary>Removed lore line <light><line></light>.'
+name-cleared: '<secondary>Cleared the custom name.'
+lore-cleared: '<secondary>Cleared the lore.'
+all-cleared: '<secondary>Cleared the custom name and lore.'
+enchants-hidden: '<secondary>Enchantments are now hidden.'
+enchants-shown: '<secondary>Enchantments are now shown.'
+attributes-hidden: '<secondary>Attributes are now hidden.'
+attributes-shown: '<secondary>Attributes are now shown.'
+copied: '<secondary>Copied the name, lore, and flags to your clipboard.'
+pasted: '<secondary>Pasted your clipboard onto this item.'
+template-saved: '<secondary>Saved template <light><template></light>.'
+template-loaded: '<secondary>Loaded template <light><template></light> onto this item.'
+template-deleted: '<secondary>Deleted template <light><template></light>.'
+templates-list: '<secondary>Your templates: <light><templates>'
+
+## Help (each line only shows if the player can use it)
 help:
-  - "<primary>BiteRename Help:"
-  - "<secondary>- <light>/bite rename <name>"
-  - "<secondary>- <light>/bite lore <lore>"
-  - "<secondary>- <light>/bite attributes <name>"
-  - "<secondary>- <light>/bite rename <name>"
-  - "<secondary>- <light>/bite rename <name>"
+  header: '<primary><bold>BiteRename</bold></primary> <muted>commands'
+  entries:
+    rename: '<light>/br rename <name> <muted>- Rename your item'
+    lore-add: '<light>/br lore add <text> <muted>- Add a lore line'
+    lore-delline: '<light>/br lore delline <line> <muted>- Remove a lore line'
+    clear: '<light>/br clear [name|lore] <muted>- Clear the name, lore, or both'
+    hide: '<light>/br hide|unhide <enchants|attributes> <muted>- Toggle item flags'
+    copy: '<light>/br copy <muted>- Copy the name, lore, and flags'
+    paste: '<light>/br paste <muted>- Paste your clipboard onto an item'
+    template: '<light>/br template save|load|delete <template> <muted>- Manage templates'
+    templates: '<light>/br templates <muted>- List your templates'
+    reload: '<light>/br reload <muted>- Reload the config'

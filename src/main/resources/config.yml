@@ -1,5 +1,58 @@
-###### bitesize rename plugin ######
+###### BiteRename ######
+# Names and lore support MiniMessage (<#FF0368>, <gradient:#FF0368:#4ECDC4>, <bold>)
+# and legacy & codes (&c, &l, &#FF0368). Run /br reload after editing.
 enabled: true
 version: 0.1
+
+# Turn whole features on or off
+features:
+  rename: true
+  lore: true
+  clear: true
+  hide: true
+  clipboard: true    # /br copy and /br paste
+  templates: true
+
+# Lengths count visible characters, so formatting doesn't count. 0 means no limit.
+limits:
+  max-lore-lines: 10
+  max-name-length: 0
+  max-lore-length: 0
+  max-templates: 0   # per player
+
+formatting:
+  # Remove the vanilla italics from custom names and lore
+  upright-text: true
+
+blacklists:
+  # Blocked anywhere in a name or lore line, ignoring case and formatting
+  words:
+    - "admin"
+    - "owner"
+    - "staff"
+    - "fuck"
+    - "shit"
+
+  # Items that can't be edited at all
+  materials:
+    - "BEDROCK"
+    - "BARRIER"
+    - "COMMAND_BLOCK"
+
+economy:
+  # NONE, VAULT (needs Vault and an economy plugin), or XP (charges levels)
+  type: "NONE"
+
+  # Cost per action. 0 makes it free.
+  costs:
+    rename: 0.0
+    lore-add: 0.0
+    lore-delline: 0.0
+    clear-all: 0.0
+    clear-name: 0.0
+    clear-lore: 0.0
+    hide: 0.0
+    paste: 0.0
+    template-load: 0.0
 
 remove-vanilla-commands: []

@@ -1,6 +1,7 @@
 package gg.bitesize.rename.managers
 
 import gg.bitesize.rename.BiteRename.Companion.INSTANCE
+import gg.bitesize.rename.config.Settings
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.configuration.file.YamlConfiguration
 import java.io.File
@@ -14,7 +15,10 @@ object ConfigManager {
     lateinit var messages: FileConfiguration
         private set
 
-    private const val MESSAGE_NOT_FOUND = "<red>Message not found. Check <gray>messages.yml<red>.</red>"
+    lateinit var settings: Settings
+        private set
+
+    private const val MESSAGE_NOT_FOUND = "<primary>Missing message. Check <light>messages.yml</light>."
 
     fun loadConfigs() {
         INSTANCE.saveDefaultConfig()
@@ -23,17 +27,29 @@ object ConfigManager {
         if (!messagesFile.exists()) {
             INSTANCE.saveResource("messages.yml", false)
         }
+        loadSettings()
         loadMessages()
     }
 
     fun reloadConfigs() {
         INSTANCE.reloadConfig()
 
+        loadSettings()
         loadMessages()
+    }
+
+    private fun loadSettings() {
+        settings = Settings.load(config, INSTANCE.logger)
     }
 
     private fun loadMessages() {
         messages = YamlConfiguration.loadConfiguration(messagesFile)
+
+        // Fall back to the bundled file, so keys added in updates work without regenerating messages.yml
+        INSTANCE.getResource("messages.yml")?.reader(Charsets.UTF_8)?.use { reader ->
+            messages.setDefaults(YamlConfiguration.loadConfiguration(reader))
+        }
+
         FormatManager.reload()
     }
 
