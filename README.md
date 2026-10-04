@@ -211,15 +211,3 @@ To try it on a local test server with the freshly built plugin loaded:
 | Spigot | `./gradlew runSpigot` | `run-spigot/` (the first run builds Spigot with BuildTools, which takes a few minutes) |
 
 Server jars are cached in `.servers/`. Add `-PrefreshServers` to fetch the latest builds.
-
-## Metrics
-
-BiteRename reports anonymous usage statistics through [bStats](https://bstats.org/plugin/bukkit/BiteRename/34507). Server owners can opt out in `plugins/bStats/config.yml`.
-
----
-
-<div align="center">
-
-Made by **bitesize** · [bitesize.gg](https://bitesize.gg) · [Report an issue](https://github.com/bite-size/BiteRename/issues)
-
-</div>
