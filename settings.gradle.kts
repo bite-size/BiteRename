@@ -1,3 +1,3 @@
 
-rootProject.name = "Template"
+rootProject.name = "BiteRename"
 

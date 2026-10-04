@@ -1,5 +1,11 @@
 ###### bitesize messages ######
-prefix: "\uD83C\uDF70 "
+prefix: '\uD83C\uDF70 '
+
+##### Define Colors
+primary-color:
+secondary-color:
+light-color:
+dark-color:
 
 ## Errors:
 error-prefix: '❗️ '
@@ -8,3 +14,10 @@ no-permission: 'Invalid permission.'
 not-a-player: 'Only players can run this command.'
 
 ## Messages:
+help:
+  - "<primary>BiteRename Help:"
+  - "<secondary>- <light>/bite rename <name>"
+  - "<secondary>- <light>/bite lore <lore>"
+  - "<secondary>- <light>/bite attributes <name>"
+  - "<secondary>- <light>/bite rename <name>"
+  - "<secondary>- <light>/bite rename <name>"

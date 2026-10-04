@@ -1,4 +1,4 @@
-package gg.bitesize.template.commands
+package gg.bitesize.rename.commands
 
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender

@@ -1,14 +1,14 @@
-package gg.bitesize.template
+package gg.bitesize.rename
 
-import gg.bitesize.template.managers.CommandManager
-import gg.bitesize.template.managers.ConfigManager
-import gg.bitesize.template.managers.CooldownManager
+import gg.bitesize.rename.managers.CommandManager
+import gg.bitesize.rename.managers.ConfigManager
+import gg.bitesize.rename.managers.CooldownManager
 import org.bukkit.plugin.java.JavaPlugin
 
-class Main : JavaPlugin() {
+class BiteRename : JavaPlugin() {
 
     companion object {
-        lateinit var INSTANCE: Main
+        lateinit var INSTANCE: BiteRename
     }
 
     override fun onLoad() {
@@ -24,8 +24,6 @@ class Main : JavaPlugin() {
     }
 
     override fun onDisable() {
-        ConfigManager.saveConfigs()
-
         CommandManager.shutdown()
 
         CooldownManager.shutdown()

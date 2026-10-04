@@ -1,6 +1,5 @@
-###### bitesize plugin! ######
+###### bitesize rename plugin ######
 enabled: true
-version: 1.4
+version: 0.1
 
-remove-vanilla-commands:
-  - ""
+remove-vanilla-commands: []

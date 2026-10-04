@@ -1,8 +1,8 @@
-package gg.bitesize.template.managers
+package gg.bitesize.rename.managers
 
 import com.google.common.cache.Cache
 import com.google.common.cache.CacheBuilder
-import gg.bitesize.template.Main.Companion.INSTANCE
+import gg.bitesize.rename.BiteRename.Companion.INSTANCE
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.entity.Player
 import java.io.File
@@ -91,7 +91,11 @@ object CooldownManager {
     fun shutdown() {
         cache.invalidateAll()
         cache.cleanUp()
-        savePersistent()
+
+        // Persistent storage only exists once loadConfig() has been called
+        if (::file.isInitialized) {
+            savePersistent()
+        }
     }
 
 }

@@ -1,21 +1,29 @@
+import org.jetbrains.kotlin.gradle.plugin.getKotlinPluginVersion
+
 plugins {
-    application
     kotlin("jvm") version "2.4.0"
     id("com.gradleup.shadow") version "9.4.2"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.21"
     id("xyz.jpenilla.run-paper") version "3.0.2"
 }
 
 group = "gg.bitesize"
-version = "1.4"
+version = "0.1"
 
 repositories {
     mavenCentral()
-    maven("https://repo.papermc.io/repository/maven-public/")
+    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
 }
 
 dependencies {
-    paperweight.paperDevBundle("26.3.build.+")
+    // Spigot API is the common surface of Spigot, Paper, and Purpur
+    compileOnly("org.spigotmc:spigot-api:26.3-R0.1-SNAPSHOT")
+
+    // Downloaded at runtime via plugin.yml `libraries`
+    compileOnly(kotlin("stdlib"))
+
+    implementation("net.kyori:adventure-text-minimessage:5.2.0")
+    implementation("net.kyori:adventure-text-serializer-legacy:5.2.0")
+    implementation("net.kyori:adventure-text-serializer-plain:5.2.0")
 }
 
 tasks {
@@ -23,17 +31,28 @@ tasks {
         dependsOn(shadowJar)
     }
 
-    compileJava {
-        options.encoding = Charsets.UTF_8.name()
-        options.release.set(25)
+    jar {
+        archiveClassifier.set("plain")
     }
 
-    javadoc {
-        options.encoding = Charsets.UTF_8.name()
+    shadowJar {
+        archiveClassifier.set("")
+        relocate("net.kyori", "gg.bitesize.rename.libs.kyori")
+        mergeServiceFiles()
+        exclude("META-INF/maven/**", "META-INF/versions/*/module-info.class", "module-info.class", "org/jspecify/**")
     }
 
     processResources {
         filteringCharset = Charsets.UTF_8.name()
+
+        val props = mapOf(
+            "version" to project.version,
+            "kotlinVersion" to project.getKotlinPluginVersion(),
+        )
+        inputs.properties(props)
+        filesMatching("plugin.yml") {
+            expand(props)
+        }
     }
 
     runServer {
@@ -43,8 +62,4 @@ tasks {
 
 kotlin {
     jvmToolchain(25)
-}
-
-application {
-    mainClass.set("MainKt")
 }
