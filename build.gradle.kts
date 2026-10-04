@@ -32,6 +32,7 @@ dependencies {
     implementation("net.kyori:adventure-text-minimessage:5.2.0")
     implementation("net.kyori:adventure-text-serializer-legacy:5.2.0")
     implementation("net.kyori:adventure-text-serializer-plain:5.2.0")
+    implementation("org.bstats:bstats-bukkit:3.2.1")
 }
 
 tasks {
@@ -46,6 +47,7 @@ tasks {
     shadowJar {
         archiveClassifier.set("")
         relocate("net.kyori", "gg.bitesize.rename.libs.kyori")
+        relocate("org.bstats", "gg.bitesize.rename.libs.bstats")
         mergeServiceFiles()
         exclude("META-INF/maven/**", "META-INF/versions/*/module-info.class", "module-info.class", "org/jspecify/**")
     }

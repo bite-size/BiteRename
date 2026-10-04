@@ -7,13 +7,18 @@ import gg.bitesize.rename.managers.ConfigManager
 import gg.bitesize.rename.managers.CooldownManager
 import gg.bitesize.rename.managers.EconomyManager
 import gg.bitesize.rename.managers.TemplateManager
+import org.bstats.bukkit.Metrics
 import org.bukkit.plugin.java.JavaPlugin
 
 class BiteRename : JavaPlugin() {
 
     companion object {
         lateinit var INSTANCE: BiteRename
+
+        private const val BSTATS_PLUGIN_ID = 34507
     }
+
+    private var metrics: Metrics? = null
 
     override fun onLoad() {
         INSTANCE = this
@@ -31,10 +36,12 @@ class BiteRename : JavaPlugin() {
         // Runs on the first tick, after every plugin (and its Vault economy) has enabled
         server.scheduler.runTask(this, Runnable { EconomyManager.checkSetup() })
 
-        //bstats
+        metrics = Metrics(this, BSTATS_PLUGIN_ID)
     }
 
     override fun onDisable() {
+        metrics?.shutdown()
+
         CommandManager.shutdown()
 
         ClipboardManager.shutdown()
