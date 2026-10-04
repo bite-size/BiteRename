@@ -1,5 +1,7 @@
 package gg.bitesize.rename
 
+import gg.bitesize.rename.listeners.PlayerListener
+import gg.bitesize.rename.managers.ClipboardManager
 import gg.bitesize.rename.managers.CommandManager
 import gg.bitesize.rename.managers.ConfigManager
 import gg.bitesize.rename.managers.CooldownManager
@@ -22,11 +24,15 @@ class BiteRename : JavaPlugin() {
         CommandManager.removeVanillaCommands()
         CommandManager.syncCommands()
 
+        server.pluginManager.registerEvents(PlayerListener, this)
+
         //bstats
     }
 
     override fun onDisable() {
         CommandManager.shutdown()
+
+        ClipboardManager.shutdown()
 
         CooldownManager.shutdown()
     }
