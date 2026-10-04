@@ -2,6 +2,7 @@ package gg.bitesize.rename.commands
 
 import gg.bitesize.rename.config.Feature
 import gg.bitesize.rename.items.ItemText
+import gg.bitesize.rename.managers.PapiManager
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import org.bukkit.command.CommandSender
@@ -36,7 +37,10 @@ abstract class ItemSubCommand(
      * Returns null after messaging the player if the text is rejected.
      */
     protected fun parseText(player: Player, raw: String, maxLength: Int, tooLongKey: String): Component? {
-        val component = ItemText.parse(raw)
+        // Gated by permission, since placeholders can expose server or other players' data
+        val text = if (player.hasPermission(Permissions.PLACEHOLDERS)) PapiManager.parse(player, raw) else raw
+
+        val component = ItemText.parse(text)
         val plain = ItemText.plainText(component)
 
         if (plain.isBlank()) {

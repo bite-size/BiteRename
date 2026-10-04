@@ -5,6 +5,7 @@ import gg.bitesize.rename.managers.ClipboardManager
 import gg.bitesize.rename.managers.CommandManager
 import gg.bitesize.rename.managers.ConfigManager
 import gg.bitesize.rename.managers.CooldownManager
+import gg.bitesize.rename.managers.EconomyManager
 import gg.bitesize.rename.managers.TemplateManager
 import org.bukkit.plugin.java.JavaPlugin
 
@@ -26,6 +27,9 @@ class BiteRename : JavaPlugin() {
         CommandManager.syncCommands()
 
         server.pluginManager.registerEvents(PlayerListener, this)
+
+        // Runs on the first tick, after every plugin (and its Vault economy) has enabled
+        server.scheduler.runTask(this, Runnable { EconomyManager.checkSetup() })
 
         //bstats
     }

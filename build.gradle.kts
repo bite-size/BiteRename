@@ -12,6 +12,10 @@ version = "0.1"
 repositories {
     mavenCentral()
     maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://repo.extendedclip.com/releases/")
+    maven("https://jitpack.io") {
+        content { includeGroup("com.github.MilkBowl") }
+    }
 }
 
 dependencies {
@@ -20,6 +24,10 @@ dependencies {
 
     // Downloaded at runtime via plugin.yml `libraries`
     compileOnly(kotlin("stdlib"))
+
+    // Optional integrations, provided by the server when installed
+    compileOnly("com.github.MilkBowl:VaultAPI:1.7") { isTransitive = false }
+    compileOnly("me.clip:placeholderapi:2.12.3") { isTransitive = false }
 
     implementation("net.kyori:adventure-text-minimessage:5.2.0")
     implementation("net.kyori:adventure-text-serializer-legacy:5.2.0")

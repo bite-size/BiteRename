@@ -66,9 +66,11 @@ object ItemText {
     }
 
     fun translateLegacy(input: String): String {
-        if ('&' !in input) return input
+        // Players can't type §, but placeholder output often contains it
+        val text = input.replace('§', '&')
+        if ('&' !in text) return text
 
-        return LEGACY_PATTERN.replace(input) { match ->
+        return LEGACY_PATTERN.replace(text) { match ->
             val (hex, spigotHex, code) = match.destructured
             when {
                 hex.isNotEmpty() -> "<reset><#$hex>"
