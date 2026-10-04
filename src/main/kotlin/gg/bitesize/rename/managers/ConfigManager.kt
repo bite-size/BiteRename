@@ -23,13 +23,18 @@ object ConfigManager {
         if (!messagesFile.exists()) {
             INSTANCE.saveResource("messages.yml", false)
         }
-        messages = YamlConfiguration.loadConfiguration(messagesFile)
+        loadMessages()
     }
 
     fun reloadConfigs() {
         INSTANCE.reloadConfig()
 
+        loadMessages()
+    }
+
+    private fun loadMessages() {
         messages = YamlConfiguration.loadConfiguration(messagesFile)
+        FormatManager.reload()
     }
 
     fun getString(path: String, default: String = ""): String {
@@ -57,7 +62,7 @@ object ConfigManager {
     }
 
     fun getErrorPrefix(): String {
-        return messages.getString("error-prefix") ?: "! "
+        return messages.getString("error-prefix") ?: ""
     }
 
     fun getMessage(path: String, default: String = MESSAGE_NOT_FOUND): String {

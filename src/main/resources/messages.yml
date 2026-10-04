@@ -1,14 +1,19 @@
-###### bitesize messages ######
-prefix: '\uD83C\uDF70 '
+###### BiteRename messages ######
+# Every message supports MiniMessage: https://docs.advntr.dev/minimessage/format
+# Use the theme colors below as tags, like <primary>Hello</primary>.
 
-##### Define Colors
-primary-color:
-secondary-color:
-light-color:
-dark-color:
+prefix: '<bold><#FF0368>[Bitesize]</#FF0368></bold> '
+
+## Theme colors (Bitesize palette)
+colors:
+  primary: '#FF0368'    # Magenta Bloom: highlights and alerts
+  secondary: '#4ECDC4'  # Strong Cyan: success
+  light: '#F7FFF7'      # Mint Cream: body text
+  muted: '#AEADF0'      # Periwinkle: hints and usage
+  dark: '#011627'       # Ink Black: gradients and accents only, too dark to read in chat
 
 ## Errors:
-error-prefix: '❗️ '
+error-prefix: '<primary>'
 player-not-found: 'Player not found.'
 no-permission: 'Invalid permission.'
 not-a-player: 'Only players can run this command.'

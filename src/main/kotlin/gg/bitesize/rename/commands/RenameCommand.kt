@@ -18,9 +18,7 @@ class RenameCommand : BaseCommand("biterename", aliases = listOf("br")) {
             return true
         }
 
-        ConfigManager.getMessageList("help").forEach { line ->
-            FormatManager.send(sender, line, usePrefix = false)
-        }
+        FormatManager.sendList(sender, ConfigManager.getMessageList("help"))
 
         return true
     }

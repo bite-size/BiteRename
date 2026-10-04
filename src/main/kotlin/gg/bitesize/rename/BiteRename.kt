@@ -21,6 +21,8 @@ class BiteRename : JavaPlugin() {
         CommandManager.registerAll()
         CommandManager.removeVanillaCommands()
         CommandManager.syncCommands()
+
+        //bstats
     }
 
     override fun onDisable() {
