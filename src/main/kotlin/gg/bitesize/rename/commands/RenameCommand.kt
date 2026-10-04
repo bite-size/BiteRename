@@ -9,6 +9,7 @@ import gg.bitesize.rename.commands.sub.ReloadSubCommand
 import gg.bitesize.rename.commands.sub.RenameSubCommand
 import gg.bitesize.rename.managers.ConfigManager
 import gg.bitesize.rename.managers.FormatManager
+import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import java.util.Locale
@@ -34,23 +35,26 @@ class RenameCommand : BaseCommand("biterename", aliases = listOf("br")) {
 
     override fun execute(sender: CommandSender, label: String, args: Array<String>): Boolean {
         if(!sender.hasPermission(Permissions.USE)) {
-            FormatManager.error(sender, ConfigManager.getMessage("no-permission"))
+            error(sender, "no-permission")
             return true
         }
 
-        val subCommand = args.firstOrNull()?.lowercase(Locale.ROOT)?.let(subCommands::get)
-        if (subCommand == null) {
-            sendHelp(sender)
+        val name = args.firstOrNull()?.lowercase(Locale.ROOT)
+        if (name == null || name == "help") {
+            sendHelp(sender, label)
             return true
         }
 
+        val subCommand = subCommands[name]
         when {
+            subCommand == null ->
+                error(sender, "unknown-command")
             subCommand.playerOnly && sender !is Player ->
-                FormatManager.error(sender, ConfigManager.getMessage("not-a-player"))
+                error(sender, "players-only")
             !sender.hasPermission(subCommand.permission) ->
-                FormatManager.error(sender, ConfigManager.getMessage("no-permission"))
+                error(sender, "no-permission")
             subCommand.feature != null && !ConfigManager.settings.isEnabled(subCommand.feature) ->
-                FormatManager.error(sender, ConfigManager.getMessage("feature-disabled"))
+                error(sender, "feature-disabled")
             else ->
                 subCommand.execute(sender, label, args.drop(1))
         }
@@ -63,9 +67,8 @@ class RenameCommand : BaseCommand("biterename", aliases = listOf("br")) {
 
         if (args.size <= 1) {
             val input = args.firstOrNull() ?: ""
-            return subCommands.values
-                .filter { it.isAvailableTo(sender) && it.name.startsWith(input, ignoreCase = true) }
-                .map { it.name }
+            val names = listOf("help") + subCommands.values.filter { it.isAvailableTo(sender) }.map { it.name }
+            return names.filter { it.startsWith(input, ignoreCase = true) }
         }
 
         val subCommand = subCommands[args[0].lowercase(Locale.ROOT)]
@@ -75,13 +78,18 @@ class RenameCommand : BaseCommand("biterename", aliases = listOf("br")) {
         return subCommand.tabComplete(sender, args.drop(1))
     }
 
-    private fun sendHelp(sender: CommandSender) {
-        val entries = subCommands.values
+    private fun sendHelp(sender: CommandSender, label: String) {
+        val labelPlaceholder = Placeholder.unparsed("label", label)
+
+        FormatManager.send(sender, ConfigManager.getMessage("help.header"), true, labelPlaceholder)
+        subCommands.values
             .filter { it.isAvailableTo(sender) }
             .flatMap { it.helpKeys }
-            .map { ConfigManager.getMessage("help.entries.$it") }
+            .forEach { FormatManager.send(sender, ConfigManager.getMessage("help.$it"), false, labelPlaceholder) }
+    }
 
-        FormatManager.sendList(sender, listOf(ConfigManager.getMessage("help.header")) + entries)
+    private fun error(sender: CommandSender, key: String) {
+        FormatManager.error(sender, ConfigManager.getMessage("errors.$key"))
     }
 
 }

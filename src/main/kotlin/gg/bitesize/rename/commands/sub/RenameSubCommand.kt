@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-class RenameSubCommand : ItemSubCommand("rename", Permissions.RENAME, "<name>", feature = Feature.RENAME) {
+class RenameSubCommand : ItemSubCommand("rename", Permissions.RENAME, feature = Feature.RENAME) {
 
     override fun execute(player: Player, item: ItemStack, label: String, args: List<String>) {
         if (args.isEmpty()) return sendUsage(player, label)

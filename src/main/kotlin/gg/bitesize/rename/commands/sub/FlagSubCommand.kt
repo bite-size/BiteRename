@@ -13,9 +13,7 @@ import org.bukkit.inventory.ItemStack
 
 /** `/br hide <target>` when [hide] is true, `/br unhide <target>` otherwise. */
 class FlagSubCommand(private val hide: Boolean) : ItemSubCommand(
-    if (hide) "hide" else "unhide", Permissions.HIDE, "<enchants|attributes>",
-    // hide and unhide share one help line
-    helpKeys = if (hide) listOf("hide") else emptyList(),
+    if (hide) "hide" else "unhide", Permissions.HIDE,
     feature = Feature.HIDE,
 ) {
 

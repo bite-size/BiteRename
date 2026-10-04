@@ -22,7 +22,7 @@ object EconomyManager {
             EconomyType.NONE -> true
             EconomyType.XP -> chargeLevels(player, cost.toInt())
             EconomyType.VAULT -> {
-                FormatManager.error(player, ConfigManager.getMessage("economy-unavailable"))
+                FormatManager.error(player, ConfigManager.getMessage("errors.vault-unavailable"))
                 false
             }
         }
@@ -32,7 +32,7 @@ object EconomyManager {
         if (levels <= 0) return true
 
         if (player.level < levels) {
-            FormatManager.error(player, ConfigManager.getMessage("not-enough-xp"),
+            FormatManager.error(player, ConfigManager.getMessage("errors.insufficient-xp"),
                 Placeholder.unparsed("cost", levels.toString()))
             return false
         }

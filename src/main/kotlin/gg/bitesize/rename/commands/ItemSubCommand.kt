@@ -17,10 +17,9 @@ import org.bukkit.inventory.ItemStack
 abstract class ItemSubCommand(
     name: String,
     permission: String,
-    usageArgs: String = "",
     helpKeys: List<String> = listOf(name),
     feature: Feature,
-) : SubCommand(name, permission, usageArgs, helpKeys, feature, playerOnly = true) {
+) : SubCommand(name, permission, helpKeys, feature, playerOnly = true) {
 
     final override fun execute(sender: CommandSender, label: String, args: List<String>) {
         val player = sender as Player

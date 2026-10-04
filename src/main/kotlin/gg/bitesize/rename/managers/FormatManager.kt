@@ -1,10 +1,7 @@
 package gg.bitesize.rename.managers
 
-import gg.bitesize.rename.BiteRename.Companion.INSTANCE
 import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.format.TextColor
 import net.kyori.adventure.text.minimessage.MiniMessage
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import org.bukkit.command.CommandSender
@@ -20,41 +17,14 @@ object FormatManager {
         .useUnusualXRepeatedCharacterHexFormat()
         .build()
 
-    // Bitesize palette, exposed as <primary>, <secondary>, ... and overridable in messages.yml
-    private val THEME_DEFAULTS = linkedMapOf(
-        "primary" to "#FF0368",
-        "secondary" to "#4ECDC4",
-        "light" to "#F7FFF7",
-        "muted" to "#AEADF0",
-        "dark" to "#011627",
-    )
-
-    private var theme: TagResolver = TagResolver.empty()
     private var prefix: Component = Component.empty()
 
     fun reload() {
-        theme = TagResolver.resolver(THEME_DEFAULTS.map { (name, fallback) ->
-            Placeholder.styling(name, resolveColor(name, fallback))
-        })
         prefix = parseMiniMessage(ConfigManager.getPrefix())
     }
 
-    private fun resolveColor(name: String, fallback: String): TextColor {
-        val configured = ConfigManager.messages.getString("colors.$name")
-        configured?.let(TextColor::fromHexString)?.let { return it }
-
-        if (configured != null) {
-            INSTANCE.logger.warning("Invalid color '$configured' at colors.$name in messages.yml. Using $fallback.")
-        }
-        return TextColor.fromHexString(fallback)!!
-    }
-
-    fun parseMiniMessage(text: String): Component {
-        return miniMessage.deserialize(text, theme)
-    }
-
     fun parseMiniMessage(text: String, vararg placeholders: TagResolver): Component {
-        return miniMessage.deserialize(text, theme, *placeholders)
+        return miniMessage.deserialize(text, *placeholders)
     }
 
     fun toLegacy(component: Component): String {
@@ -81,10 +51,6 @@ object FormatManager {
 
         sender.sendMessage(toLegacy(message))
 
-    }
-
-    fun sendList(sender: CommandSender, lines: List<String>, vararg placeholders: TagResolver) {
-        lines.forEach { line -> send(sender, line, false, *placeholders) }
     }
 
     fun error(sender: CommandSender, text: String, vararg placeholders: TagResolver) {

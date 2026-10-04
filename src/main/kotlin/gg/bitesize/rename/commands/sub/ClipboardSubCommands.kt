@@ -25,7 +25,7 @@ class CopySubCommand : ItemSubCommand("copy", Permissions.COPYPASTE, feature = F
 class PasteSubCommand : ItemSubCommand("paste", Permissions.COPYPASTE, feature = Feature.CLIPBOARD) {
 
     override fun execute(player: Player, item: ItemStack, label: String, args: List<String>) {
-        val clipboard = ClipboardManager.get(player.uniqueId) ?: return error(player, "clipboard-empty")
+        val clipboard = ClipboardManager.get(player.uniqueId) ?: return error(player, "clipboard-empty", labelPlaceholder(label))
 
         if (!passesWordBlacklist(player, clipboard)) return
         if (!EconomyManager.charge(player, CostAction.PASTE)) return

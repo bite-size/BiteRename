@@ -1,7 +1,7 @@
-###### BiteRename ######
-# Names and lore support MiniMessage (<#FF0368>, <gradient:#FF0368:#4ECDC4>, <bold>)
-# and legacy & codes (&c, &l, &#FF0368). Run /br reload after editing.
-enabled: true
+############# BiteRename ############
+#####    Created by: bitesize    ####
+#####   https://www.bitesize.gg  ####
+#####################################
 version: 0.1
 
 # Turn whole features on or off
@@ -20,6 +20,8 @@ limits:
   max-lore-length: 0
   max-templates: 0   # per player
 
+# Names and lore support MiniMessage (<#FF0368>, <gradient:#FF0368:#4ECDC4>, <bold>)
+# and legacy & codes (&c, &l, &#FF0368). Run /br reload after editing.
 formatting:
   # Remove the vanilla italics from custom names and lore
   upright-text: true

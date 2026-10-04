@@ -18,7 +18,7 @@ object ConfigManager {
     lateinit var settings: Settings
         private set
 
-    private const val MESSAGE_NOT_FOUND = "<primary>Missing message. Check <light>messages.yml</light>."
+    private const val MESSAGE_NOT_FOUND = "<#F7567C>Message not found. Check <gray>messages.yml<#F7567C>."
 
     fun loadConfigs() {
         INSTANCE.saveDefaultConfig()

@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-class ClearSubCommand : ItemSubCommand("clear", Permissions.CLEAR, "[name|lore]", feature = Feature.CLEAR) {
+class ClearSubCommand : ItemSubCommand("clear", Permissions.CLEAR, feature = Feature.CLEAR) {
 
     private val targets = listOf("name", "lore")
 

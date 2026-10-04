@@ -16,8 +16,7 @@ import org.bukkit.entity.Player
 abstract class SubCommand(
     val name: String,
     val permission: String,
-    private val usageArgs: String = "",
-    /** help.entries keys shown for this subcommand */
+    /** help.<key> lines shown for this subcommand */
     val helpKeys: List<String> = listOf(name),
     val feature: Feature? = null,
     val playerOnly: Boolean = true,
@@ -36,17 +35,22 @@ abstract class SubCommand(
                 && (feature == null || settings.isEnabled(feature))
     }
 
+    /** Sends `errors.<key>`. */
     protected fun error(sender: CommandSender, key: String, vararg placeholders: TagResolver) {
-        FormatManager.error(sender, ConfigManager.getMessage(key), *placeholders)
+        FormatManager.error(sender, ConfigManager.getMessage("errors.$key"), *placeholders)
     }
 
+    /** Sends `messages.<key>`. */
     protected fun success(sender: CommandSender, key: String, vararg placeholders: TagResolver) {
-        FormatManager.send(sender, ConfigManager.getMessage(key), true, *placeholders)
+        FormatManager.send(sender, ConfigManager.getMessage("messages.$key"), true, *placeholders)
     }
 
-    protected fun sendUsage(sender: CommandSender, label: String, args: String = usageArgs) {
-        error(sender, "usage", Placeholder.unparsed("usage", "/$label $name $args".trimEnd()))
+    /** Sends `errors.usage-<usageKey>`. */
+    protected fun sendUsage(sender: CommandSender, label: String, usageKey: String = name) {
+        error(sender, "usage-$usageKey", labelPlaceholder(label))
     }
+
+    protected fun labelPlaceholder(label: String): TagResolver = Placeholder.unparsed("label", label)
 
     protected fun matching(input: String, options: Iterable<String>): List<String> {
         return options.filter { it.startsWith(input, ignoreCase = true) }

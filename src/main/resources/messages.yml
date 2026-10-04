@@ -1,80 +1,89 @@
-###### BiteRename messages ######
-# Every message supports MiniMessage: https://docs.advntr.dev/minimessage/format
-# Use the theme colors below as tags, like <primary>Hello</primary>.
-# Words in <angle brackets> that aren't tags, like <name>, are shown as written.
+############# BiteRename ############
+#####    Created by: bitesize    ####
+#####   https://www.bitesize.gg  ####
+#####################################
+prefix: '<#FF0368>[BiteRename] '
+error-prefix: '<#F7567C>!! '
+# Variables:
+# - <label> = command label.
+# - <max> = configured limit (characters, lore lines, or templates).
+# - <line> = lore line number.
+# - <cost> = cost of an action (e.g. "$10.00" or "5").
+# - <template> = name of a template.
+# - <templates> = list of your templates.
 
-prefix: '<bold><#FF0368>[Bitesize]</#FF0368></bold> '
+errors:
+  no-permission: '<#F7567C>No permission.'
+  players-only: '<#F7567C>Only players can use this command.'
+  unknown-command: '<#F7567C>Unknown command.'
+  feature-disabled: '<#F7567C>This feature is disabled.'
+  usage-rename: '<#F7567C>Usage: /<label> rename <name>'
+  usage-lore: '<#F7567C>Usage: /<label> lore <add|delline> ...'
+  usage-lore-add: '<#F7567C>Usage: /<label> lore add <text>'
+  usage-lore-delline: '<#F7567C>Usage: /<label> lore delline <line>'
+  usage-clear: '<#F7567C>Usage: /<label> clear [name|lore]'
+  usage-hide: '<#F7567C>Usage: /<label> hide <enchants|attributes>'
+  usage-unhide: '<#F7567C>Usage: /<label> unhide <enchants|attributes>'
+  usage-template: '<#F7567C>Usage: /<label> template <save|load|delete> <name>'
+  usage-template-save: '<#F7567C>Usage: /<label> template save <name>'
+  usage-template-load: '<#F7567C>Usage: /<label> template load <name>'
+  usage-template-delete: '<#F7567C>Usage: /<label> template delete <name>'
+  no-item: '<#F7567C>Hold an item in your main hand first.'
+  blacklisted-material: "<#F7567C>This item can't be edited."
+  blacklisted-word: '<#F7567C>That text contains a blocked word.'
+  empty-text: '<#F7567C>That text is empty once formatting is removed.'
+  name-too-long: '<#F7567C>Names can be up to <#4ECDC4><max> <#F7567C>characters.'
+  lore-too-long: '<#F7567C>Lore lines can be up to <#4ECDC4><max> <#F7567C>characters.'
+  max-lore-lines: '<#F7567C>This item already has the maximum of <#4ECDC4><max> <#F7567C>lore lines.'
+  invalid-line: "<#F7567C>That lore line doesn't exist."
+  nothing-to-clear: '<#F7567C>This item has nothing to clear.'
+  already-hidden: "<#F7567C>That's already hidden on this item."
+  already-shown: "<#F7567C>That's already shown on this item."
+  nothing-to-copy: '<#F7567C>This item has no custom name, lore, or flags to copy.'
+  clipboard-empty: '<#F7567C>Your clipboard is empty. Use <#4ECDC4>/<label> copy <#F7567C>first.'
+  nothing-to-save: '<#F7567C>This item has no custom name, lore, or flags to save.'
+  invalid-template-name: '<#F7567C>Template names can only contain alphanumeric characters, dashes, and underscores (up to 32).'
+  template-not-found: '<#F7567C>Template not found.'
+  template-limit: '<#F7567C>You can only save <#4ECDC4><max> <#F7567C>templates.'
+  no-templates: "<#F7567C>You don't have any saved templates."
+  insufficient-funds: '<#F7567C>You need <#4ECDC4><cost> <#F7567C>to do that.'
+  insufficient-xp: '<#F7567C>You need <#4ECDC4><cost> levels <#F7567C>to do that.'
+  transaction-failed: '<#F7567C>Transaction failed.'
+  vault-unavailable: '<#F7567C>Vault economy is not available! Contact an administrator.'
 
-## Theme colors (Bitesize palette)
-colors:
-  primary: '#FF0368'    # Magenta Bloom: highlights and alerts
-  secondary: '#4ECDC4'  # Strong Cyan: success
-  light: '#F7FFF7'      # Mint Cream: body text
-  muted: '#AEADF0'      # Periwinkle: hints and usage
-  dark: '#011627'       # Ink Black: gradients and accents only, too dark to read in chat
+messages:
+  plugin-reloaded: '<#4ECDC4>Plugin reloaded.'
+  item-renamed: '<#4ECDC4>Item renamed.'
+  lore-added: '<#4ECDC4>Lore line added.'
+  lore-line-deleted: '<#4ECDC4>Removed lore line <line>.'
+  name-cleared: '<#4ECDC4>Cleared the custom name.'
+  lore-cleared: '<#4ECDC4>Cleared the lore.'
+  all-cleared: '<#4ECDC4>Cleared the custom name and lore.'
+  enchants-hidden: '<#4ECDC4>Enchantments are now hidden.'
+  enchants-shown: '<#4ECDC4>Enchantments are now shown.'
+  attributes-hidden: '<#4ECDC4>Attributes are now hidden.'
+  attributes-shown: '<#4ECDC4>Attributes are now shown.'
+  copied: '<#4ECDC4>Copied the name, lore, and flags to your clipboard.'
+  pasted: '<#4ECDC4>Pasted your clipboard onto your item.'
+  template-saved: '<#4ECDC4>Template <template> saved.'
+  template-loaded: '<#4ECDC4>Template <template> loaded onto your item.'
+  template-deleted: '<#4ECDC4>Template <template> deleted.'
+  templates-list: '<#4ECDC4>Your templates: <#F7FFF7><templates>'
+  bypassed-material-blacklist: '<#4ECDC4>Notice: You bypassed the item blacklist.'
+  bypassed-word-blacklist: '<#4ECDC4>Notice: You bypassed the word blacklist.'
 
-## Errors (shown after error-prefix)
-error-prefix: '<primary>'
-no-permission: "You don't have permission to do that."
-not-a-player: 'Only players can use this command.'
-feature-disabled: 'That feature is turned off on this server.'
-usage: 'Usage: <light><usage></light>'
-no-item: 'Hold an item in your main hand first.'
-blacklisted-material: "This item can't be edited."
-blacklisted-word: 'That text contains a blocked word.'
-empty-text: "That text is empty once formatting is removed."
-name-too-long: 'Names can be up to <light><max></light> characters.'
-lore-too-long: 'Lore lines can be up to <light><max></light> characters.'
-max-lore-lines: 'This item already has the maximum of <light><max></light> lore lines.'
-invalid-line: "That lore line doesn't exist."
-nothing-to-clear: 'This item has nothing to clear.'
-already-hidden: "That's already hidden on this item."
-already-shown: "That's already shown on this item."
-nothing-to-copy: 'This item has no custom name, lore, or flags to copy.'
-clipboard-empty: 'Your clipboard is empty. Use <light>/br copy</light> first.'
-nothing-to-save: 'This item has no custom name, lore, or flags to save.'
-invalid-template-name: 'Template names use letters, numbers, - and _ (up to 32 characters).'
-template-not-found: "You don't have a template named <light><template></light>."
-template-limit: "You've reached your limit of <light><max></light> templates."
-no-templates: "You don't have any saved templates yet."
-not-enough-money: 'You need <light><cost></light> to do that.'
-not-enough-xp: 'You need <light><cost> levels</light> to do that.'
-economy-unavailable: "Payments aren't available right now. Please let an admin know."
-
-## Notices
-bypassed-material-blacklist: '<muted><italic>Heads up: you bypassed the item blacklist.'
-bypassed-word-blacklist: '<muted><italic>Heads up: you bypassed the word blacklist.'
-
-## Success
-reloaded: '<secondary>BiteRename reloaded.'
-item-renamed: '<secondary>Item renamed.'
-lore-added: '<secondary>Lore line added.'
-lore-line-deleted: '<secondary>Removed lore line <light><line></light>.'
-name-cleared: '<secondary>Cleared the custom name.'
-lore-cleared: '<secondary>Cleared the lore.'
-all-cleared: '<secondary>Cleared the custom name and lore.'
-enchants-hidden: '<secondary>Enchantments are now hidden.'
-enchants-shown: '<secondary>Enchantments are now shown.'
-attributes-hidden: '<secondary>Attributes are now hidden.'
-attributes-shown: '<secondary>Attributes are now shown.'
-copied: '<secondary>Copied the name, lore, and flags to your clipboard.'
-pasted: '<secondary>Pasted your clipboard onto this item.'
-template-saved: '<secondary>Saved template <light><template></light>.'
-template-loaded: '<secondary>Loaded template <light><template></light> onto this item.'
-template-deleted: '<secondary>Deleted template <light><template></light>.'
-templates-list: '<secondary>Your templates: <light><templates>'
-
-## Help (each line only shows if the player can use it)
 help:
-  header: '<primary>[BiteRename]</primary> <secondary>commands'
-  entries:
-    rename: '<light>/br rename <name> <secondary>- Rename your item'
-    lore-add: '<light>/br lore add <text> <secondary>- Add a lore line'
-    lore-delline: '<light>/br lore delline <line> <secondary>- Remove a lore line'
-    clear: '<light>/br clear [name|lore] <secondary>- Clear the name, lore, or both'
-    hide: '<light>/br hide|unhide <enchants|attributes> <secondary>- Toggle item flags'
-    copy: '<light>/br copy <secondary>- Copy the name, lore, and flags'
-    paste: '<light>/br paste <secondary>- Paste your clipboard onto an item'
-    template: '<light>/br template save|load|delete <template> <secondary>- Manage templates'
-    templates: '<light>/br templates <secondary>- List your templates'
-    reload: '<light>/br reload <secondary>- Reload the config'
+  header: '<#4ECDC4>--- BiteRename Help ---'
+  rename: '<gray>- /<label> rename <name>'
+  lore-add: '<gray>- /<label> lore add <text>'
+  lore-delline: '<gray>- /<label> lore delline <line>'
+  clear: '<gray>- /<label> clear [name|lore]'
+  hide: '<gray>- /<label> hide <enchants|attributes>'
+  unhide: '<gray>- /<label> unhide <enchants|attributes>'
+  copy: '<gray>- /<label> copy'
+  paste: '<gray>- /<label> paste'
+  template-save: '<gray>- /<label> template save <name>'
+  template-load: '<gray>- /<label> template load <name>'
+  template-delete: '<gray>- /<label> template delete <name>'
+  templates: '<gray>- /<label> templates'
+  reload: '<gray>- /<label> reload'

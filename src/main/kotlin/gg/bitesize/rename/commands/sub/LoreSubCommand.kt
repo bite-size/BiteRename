@@ -15,7 +15,7 @@ import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
 class LoreSubCommand : ItemSubCommand(
-    "lore", Permissions.LORE, "<add|delline>",
+    "lore", Permissions.LORE,
     helpKeys = listOf("lore-add", "lore-delline"),
     feature = Feature.LORE,
 ) {
@@ -31,7 +31,7 @@ class LoreSubCommand : ItemSubCommand(
     }
 
     private fun add(player: Player, item: ItemStack, label: String, args: List<String>) {
-        if (args.isEmpty()) return sendUsage(player, label, "add <text>")
+        if (args.isEmpty()) return sendUsage(player, label, "lore-add")
 
         val maxLines = settings.maxLoreLines
         if (maxLines > 0 && item.loreSize() >= maxLines) {
@@ -47,7 +47,7 @@ class LoreSubCommand : ItemSubCommand(
     }
 
     private fun deleteLine(player: Player, item: ItemStack, label: String, args: List<String>) {
-        val line = args.firstOrNull()?.toIntOrNull() ?: return sendUsage(player, label, "delline <line>")
+        val line = args.firstOrNull()?.toIntOrNull() ?: return sendUsage(player, label, "lore-delline")
 
         if (line !in 1..item.loreSize()) {
             error(player, "invalid-line")

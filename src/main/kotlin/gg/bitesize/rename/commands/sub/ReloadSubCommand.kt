@@ -9,7 +9,7 @@ class ReloadSubCommand : SubCommand("reload", Permissions.ADMIN, playerOnly = fa
 
     override fun execute(sender: CommandSender, label: String, args: List<String>) {
         ConfigManager.reloadConfigs()
-        success(sender, "reloaded")
+        success(sender, "plugin-reloaded")
     }
 
 }
