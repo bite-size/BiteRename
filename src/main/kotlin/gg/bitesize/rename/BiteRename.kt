@@ -5,6 +5,7 @@ import gg.bitesize.rename.managers.ClipboardManager
 import gg.bitesize.rename.managers.CommandManager
 import gg.bitesize.rename.managers.ConfigManager
 import gg.bitesize.rename.managers.CooldownManager
+import gg.bitesize.rename.managers.TemplateManager
 import org.bukkit.plugin.java.JavaPlugin
 
 class BiteRename : JavaPlugin() {
@@ -19,6 +20,7 @@ class BiteRename : JavaPlugin() {
 
     override fun onEnable() {
         ConfigManager.loadConfigs()
+        TemplateManager.load()
 
         CommandManager.registerAll()
         CommandManager.syncCommands()
@@ -32,6 +34,8 @@ class BiteRename : JavaPlugin() {
         CommandManager.shutdown()
 
         ClipboardManager.shutdown()
+
+        TemplateManager.shutdown()
 
         CooldownManager.shutdown()
     }

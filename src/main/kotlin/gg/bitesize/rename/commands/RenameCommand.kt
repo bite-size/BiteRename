@@ -7,6 +7,8 @@ import gg.bitesize.rename.commands.sub.LoreSubCommand
 import gg.bitesize.rename.commands.sub.PasteSubCommand
 import gg.bitesize.rename.commands.sub.ReloadSubCommand
 import gg.bitesize.rename.commands.sub.RenameSubCommand
+import gg.bitesize.rename.commands.sub.TemplateSubCommand
+import gg.bitesize.rename.commands.sub.TemplatesSubCommand
 import gg.bitesize.rename.managers.ConfigManager
 import gg.bitesize.rename.managers.FormatManager
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
@@ -25,6 +27,8 @@ class RenameCommand : BaseCommand("biterename", aliases = listOf("br")) {
         FlagSubCommand(hide = false),
         CopySubCommand(),
         PasteSubCommand(),
+        TemplateSubCommand(),
+        TemplatesSubCommand(),
         ReloadSubCommand(),
     ).associateBy { it.name }
 

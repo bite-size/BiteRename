@@ -1,9 +1,7 @@
 package gg.bitesize.rename.commands
 
 import gg.bitesize.rename.config.Feature
-import gg.bitesize.rename.items.ItemSnapshot
 import gg.bitesize.rename.items.ItemText
-import gg.bitesize.rename.managers.FormatManager
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import org.bukkit.command.CommandSender
@@ -23,21 +21,7 @@ abstract class ItemSubCommand(
 
     final override fun execute(sender: CommandSender, label: String, args: List<String>) {
         val player = sender as Player
-        val item = player.inventory.itemInMainHand
-
-        if (item.type.isAir) {
-            error(player, "no-item")
-            return
-        }
-
-        if (settings.isMaterialBlacklisted(item.type)) {
-            if (!player.hasPermission(Permissions.BYPASS_BLACKLIST)) {
-                error(player, "blacklisted-material")
-                return
-            }
-            success(player, "bypassed-material-blacklist")
-        }
-
+        val item = editableItem(player) ?: return
         execute(player, item, label, args)
     }
 
@@ -66,25 +50,6 @@ abstract class ItemSubCommand(
         }
 
         return component.takeIf { passesWordBlacklist(player, plain) }
-    }
-
-    /** Checks copied or saved text too, so paste can't carry blocked words onto new items. */
-    protected fun passesWordBlacklist(player: Player, snapshot: ItemSnapshot): Boolean {
-        val text = listOfNotNull(snapshot.displayName) + snapshot.lore.orEmpty()
-        val plain = text.joinToString("\n") { ItemText.plainText(FormatManager.fromLegacy(it)) }
-        return passesWordBlacklist(player, plain)
-    }
-
-    private fun passesWordBlacklist(player: Player, plain: String): Boolean {
-        if (!settings.isWordBlacklisted(plain)) return true
-
-        if (!player.hasPermission(Permissions.BYPASS_BLACKLIST)) {
-            error(player, "blacklisted-word")
-            return false
-        }
-
-        success(player, "bypassed-word-blacklist")
-        return true
     }
 
 }

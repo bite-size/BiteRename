@@ -2,12 +2,15 @@ package gg.bitesize.rename.commands
 
 import gg.bitesize.rename.config.Feature
 import gg.bitesize.rename.config.Settings
+import gg.bitesize.rename.items.ItemSnapshot
+import gg.bitesize.rename.items.ItemText
 import gg.bitesize.rename.managers.ConfigManager
 import gg.bitesize.rename.managers.FormatManager
 import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 
 /**
  * A `/biterename <name> ...` subcommand. The root command checks player-only,
@@ -59,6 +62,48 @@ abstract class SubCommand(
     /** A hint like `<name>` while the argument is still empty. */
     protected fun hint(input: String, hint: String): List<String> {
         return if (input.isEmpty()) listOf(hint) else emptyList()
+    }
+
+    /**
+     * The player's main-hand item if it can be edited: not air, and not a blacklisted
+     * material (unless bypassed). Returns null after messaging the player otherwise.
+     */
+    protected fun editableItem(player: Player): ItemStack? {
+        val item = player.inventory.itemInMainHand
+
+        if (item.type.isAir) {
+            error(player, "no-item")
+            return null
+        }
+
+        if (settings.isMaterialBlacklisted(item.type)) {
+            if (!player.hasPermission(Permissions.BYPASS_BLACKLIST)) {
+                error(player, "blacklisted-material")
+                return null
+            }
+            success(player, "bypassed-material-blacklist")
+        }
+
+        return item
+    }
+
+    /** Checks copied or saved text too, so paste and templates can't carry blocked words onto new items. */
+    protected fun passesWordBlacklist(player: Player, snapshot: ItemSnapshot): Boolean {
+        val text = listOfNotNull(snapshot.displayName) + snapshot.lore.orEmpty()
+        val plain = text.joinToString("\n") { ItemText.plainText(FormatManager.fromLegacy(it)) }
+        return passesWordBlacklist(player, plain)
+    }
+
+    protected fun passesWordBlacklist(player: Player, plain: String): Boolean {
+        if (!settings.isWordBlacklisted(plain)) return true
+
+        if (!player.hasPermission(Permissions.BYPASS_BLACKLIST)) {
+            error(player, "blacklisted-word")
+            return false
+        }
+
+        success(player, "bypassed-word-blacklist")
+        return true
     }
 
 }
