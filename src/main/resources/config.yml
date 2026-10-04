@@ -25,6 +25,8 @@ limits:
 formatting:
   # Remove the vanilla italics from custom names and lore
   upright-text: true
+  # Let players add blank lore lines to space out lore, e.g. /br lore add &r
+  allow-empty-lore-lines: true
 
 blacklists:
   # Blocked anywhere in a name or lore line, ignoring case and formatting

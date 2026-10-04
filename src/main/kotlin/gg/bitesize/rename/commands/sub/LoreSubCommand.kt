@@ -39,7 +39,8 @@ class LoreSubCommand : ItemSubCommand(
             return
         }
 
-        val line = parseText(player, args.joinToString(" "), settings.maxLoreLength, "lore-too-long") ?: return
+        val line = parseText(player, args.joinToString(" "), settings.maxLoreLength, "lore-too-long",
+            allowEmpty = settings.allowEmptyLoreLines) ?: return
         if (!EconomyManager.charge(player, CostAction.LORE_ADD)) return
 
         item.addLore(ItemText.toItemString(line, settings.uprightText), settings.uprightText)

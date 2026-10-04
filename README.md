@@ -90,6 +90,8 @@ Any name or lore line can use:
 | Decorations | `<bold>`, `<italic>`, `<underlined>`, `<strikethrough>`, `<obfuscated>` |
 | Legacy codes | `&c&lBold Red`, `&x&F&F&0&3&6&8Spigot hex` |
 
+Need some breathing room in your lore? `/br lore add &r` (or any formatting with no text, like `<red>`) adds a blank spacer line. Server owners can turn this off with `allow-empty-lore-lines`.
+
 Only visual tags are allowed. Interactive or server-side tags like `<click>`, `<hover>`, `<selector>`, or `<nbt>` stay as plain text, so players can't sneak them onto items.
 
 With PlaceholderAPI installed, players with `biterename.placeholders` can write placeholders like `%player_name%` into their text. They're filled in once, when the text is applied.
@@ -119,6 +121,8 @@ limits:
 formatting:
   # Remove the vanilla italics from custom names and lore
   upright-text: true
+  # Let players add blank lore lines to space out lore, e.g. /br lore add &r
+  allow-empty-lore-lines: true
 
 blacklists:
   # Blocked anywhere in a name or lore line, ignoring case and formatting

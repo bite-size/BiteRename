@@ -41,6 +41,7 @@ class Settings private constructor(
     val maxLoreLength: Int,
     val maxTemplates: Int,
     val uprightText: Boolean,
+    val allowEmptyLoreLines: Boolean,
     private val blacklistedWords: List<String>,
     private val blacklistedMaterials: Set<Material>,
     val economyType: EconomyType,
@@ -95,6 +96,7 @@ class Settings private constructor(
                 maxLoreLength = config.getInt("limits.max-lore-length", 0).coerceAtLeast(0),
                 maxTemplates = config.getInt("limits.max-templates", 0).coerceAtLeast(0),
                 uprightText = config.getBoolean("formatting.upright-text", true),
+                allowEmptyLoreLines = config.getBoolean("formatting.allow-empty-lore-lines", true),
                 blacklistedWords = config.getStringList("blacklists.words")
                     .map { it.trim().lowercase(Locale.ROOT) }
                     .filter { it.isNotEmpty() },

@@ -36,14 +36,19 @@ abstract class ItemSubCommand(
      * Parses player-written text and applies the length limit and word blacklist.
      * Returns null after messaging the player if the text is rejected.
      */
-    protected fun parseText(player: Player, raw: String, maxLength: Int, tooLongKey: String): Component? {
+    protected fun parseText(
+        player: Player, raw: String, maxLength: Int, tooLongKey: String, allowEmpty: Boolean = false,
+    ): Component? {
         // Gated by permission, since placeholders can expose server or other players' data
         val text = if (player.hasPermission(Permissions.PLACEHOLDERS)) PapiManager.parse(player, raw) else raw
 
         val component = ItemText.parse(text)
         val plain = ItemText.plainText(component)
 
+        // Formatting-only text like "&r" or "<red>" is a deliberate blank line when allowed
         if (plain.isBlank()) {
+            if (allowEmpty) return component
+
             error(player, "empty-text")
             return null
         }
